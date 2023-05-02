@@ -3,7 +3,7 @@ name: Does Something
 on: push
 
 jobs:
-  waits:
+  builds:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -15,9 +15,23 @@ jobs:
           go-version: "^1.18"
           check-latest: true
 
-      - run: |
+      - name: Builds and lists directory
+        run: |
           ls
           go build -o ./bin/hello
           ls ./bin
 
       - run: ./bin/hello
+
+  waits:
+    runs-on: ubuntu-latest
+    needs: [builds]
+    steps:
+      - name: Wait
+        run: |
+          echo Going to sleep for 5 seconds
+          date
+          sleep 5s
+          echo I woke up
+          date
+        
