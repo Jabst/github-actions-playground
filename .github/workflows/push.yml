@@ -16,6 +16,8 @@ jobs:
           check-latest: true
 
       - run: |
-          go build
+          ls
+          go build -o ./bin/hello
+          ls ./bin
 
       - run: ./bin/hello
