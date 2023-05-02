@@ -34,4 +34,7 @@ jobs:
           sleep 5s
           echo I woke up
           date
+      - name: Check what is inside
+        run: |
+          ls
         
