@@ -1,8 +1,8 @@
-name: On Push to Feature Branch
+name: On Merge to Master or Release Branch
 
 on:
   push:
-    branches-ignore:    
+    branches:
       - main
       - 'releases/**'
 
@@ -120,22 +120,39 @@ jobs:
       - name: Run integration tests
         run: |
           go test -timeout 30s -run ^Test_Integration$ Jabst/github-actions-playground/repos
+      
+  make-docs:
+    runs-on: ubuntu-latest
+    needs: [generative-tests, unit-tests, integration-test]
+    steps:
+      - name: Makes docs
+        run: |
+          echo Will generate the Docs here
 
   publish-image:
     runs-on: ubuntu-latest
-    needs: [builds]
+    needs: [make-docs]
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "^1.18"
-          check-latest: true
-
-      - name: Publish Image to Docker Registry
+      - name: Build Image
         run: |
-          echo I am publishing image to the registry
+          echo Is Building the image
+      
+      - name: Push Image
+        run: |
+          echo Is pushing the image to the docker registry
 
-        
+  deploy-dev:
+    runs-on: ubuntu-latest
+    needs: [publish-image]
+    steps:
+      - name: Deploys to Dev
+        run: |
+          echo Is deploying to dev
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: [publish-image]
+    steps:
+      - name: Deploys to Production
+        run: |
+          echo Is deploying to prod

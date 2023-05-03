@@ -1,0 +1,37 @@
+name: On Tag
+
+on:
+  push:
+    tags:    
+      - v*.*.*
+
+jobs:
+  publish-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "^1.18"
+          check-latest: true
+
+      - name: Create the docker image
+        run: |
+          echo I am running make docker-build
+
+      - name: Publish the docker image
+        run: |
+          echo I am publishing the image to the docker registry
+    
+  prepare-release-notes:
+    runs-on: ubuntu-latest
+    steps:
+      - name: create-release-notes
+        run: |
+          echo Prepares the release notes
+        
+          
+        

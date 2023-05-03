@@ -8,10 +8,6 @@ import (
 	"github.com/google/go-cmp/cmp"
 )
 
-func initOnion() repos.OnionStore {
-	return repos.NewOnionStore()
-}
-
 func setupOnion() []repos.Onion {
 	return []repos.Onion{
 		{
@@ -37,8 +33,8 @@ func setupOnion() []repos.Onion {
 	}
 }
 
-func Test_AddOnion(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_AddOnion(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onion := repos.Onion{
 		Layers: uint(2),
@@ -52,8 +48,8 @@ func Test_AddOnion(t *testing.T) {
 	}
 }
 
-func Test_AddOnion_2(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_AddOnion_2(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onion := repos.Onion{
 		Layers: uint(2),
@@ -68,8 +64,8 @@ func Test_AddOnion_2(t *testing.T) {
 	}
 }
 
-func Test_ShiftOnion(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_ShiftOnion(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onionsToAdd := setupOnion()
 
@@ -86,8 +82,8 @@ func Test_ShiftOnion(t *testing.T) {
 	}
 }
 
-func Test_ShiftOnion_ToFail(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_ShiftOnion_ToFail(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onionsToAdd := setupOnion()
 
@@ -108,8 +104,8 @@ func Test_ShiftOnion_ToFail(t *testing.T) {
 
 }
 
-func Test_PopOnion(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_PopOnion(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onionsToAdd := setupOnion()
 
@@ -126,8 +122,8 @@ func Test_PopOnion(t *testing.T) {
 	}
 }
 
-func Test_PopOnion_ToFail(t *testing.T) {
-	onionStore := initOnion()
+func Test_Unit_PopOnion_ToFail(t *testing.T) {
+	onionStore := initOnionStore()
 
 	onionsToAdd := setupOnion()
 
