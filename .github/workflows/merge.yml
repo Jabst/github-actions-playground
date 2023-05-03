@@ -13,49 +13,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "^1.18"
-          check-latest: true
-
-      - name: Builds and lists directory
-        run: |
-          ls
-          go build -o ./bin/hello
-          ls ./bin
-
-      - name: Runs built binary
-        run: ./bin/hello
-
-  waits-and-test:
-    runs-on: ubuntu-latest
-    needs: [builds]
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "^1.18"
-          check-latest: true
-
-      - name: Wait
-        run: |
-          echo Going to sleep for 5 seconds
-          date
-          sleep 5s
-          echo I woke up
-          date
-
-      - name: Check what is inside
-        run: |
-          ls
-
-      - name: Run test
-        run: |
-          go test -v ./main_test.go
+      - name: Build
+        uses: ./.github/actions/build
 
   generative-tests:
     runs-on: ubuntu-latest
@@ -64,16 +23,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "^1.18"
-          check-latest: true
-
-      - name: Run generative tests
-        run: |
-          echo Actually I only sleep
-          sleep 10s
+      - name: Generative tests
+        uses: ./.github/actions/generative-test
 
   unit-tests:
     runs-on: ubuntu-latest
@@ -82,15 +33,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Setup Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: "^1.18"
-          check-latest: true
-
       - name: Run unit tests
-        run: |
-          go test -count=1 -timeout 30s -run ^Test_Unit/s$ Jabst/github-actions-playground/repos -v
+        uses: ./.github/actions/unit-test
           
   integration-test:
     needs: [builds]
@@ -98,10 +42,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
-      - name: Just LS's lol
-        run: |
-          ls -a /home/runner/work/github-actions-playground/github-actions-playground/.github/workflows
 
       - name: Test
         id: integration-test

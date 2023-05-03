@@ -1,0 +1,19 @@
+name: Unit Tests
+description: Runs the unit tests
+    
+runs:
+  using: "composite"
+  steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: "^1.18"
+          check-latest: true
+
+      - name: Run unit tests
+        run: |
+          go test -count=1 -timeout 30s -run ^Test_Unit/s$ Jabst/github-actions-playground/repos -v
+        shell: bash
