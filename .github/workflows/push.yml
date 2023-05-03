@@ -41,18 +41,6 @@ jobs:
           go-version: "^1.18"
           check-latest: true
 
-      - name: Wait
-        run: |
-          echo Going to sleep for 5 seconds
-          date
-          sleep 5s
-          echo I woke up
-          date
-
-      - name: Check what is inside
-        run: |
-          ls
-
       - name: Run test
         run: |
           go test -v ./main_test.go
@@ -99,14 +87,15 @@ jobs:
       # Label used to access the service container
       postgres:
         # Docker Hub image
-        image: postgres
+        image: postgres:13-alpine
         # Provide the password for postgres
         env:
           POSTGRES_PASSWORD: password
           POSTGRES_USERNAME: user
           POSTGRES_DBNAME: onions
-          POSTGRES_PORT: 5432
         # Set health checks to wait until postgres has started
+        ports:
+          - 5432:5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -121,18 +110,6 @@ jobs:
         with:
           go-version: "^1.18"
           check-latest: true
-
-      - name: Wait
-        run: |
-          echo Going to sleep for 5 seconds
-          date
-          sleep 5s
-          echo I woke up
-          date
-
-      - name: Check what is inside
-        run: |
-          ls
 
       - name: Run integration tests
         run: |

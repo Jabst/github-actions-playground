@@ -6,9 +6,6 @@ ADD . /app/src/github_actions
 
 WORKDIR /app/src/github_actions
 
-RUN make clean install
-RUN make github_actions
-
 RUN mv github_actions /github_actions
 
 FROM alpine:latest
