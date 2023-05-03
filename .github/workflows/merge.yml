@@ -101,7 +101,7 @@ jobs:
 
       - name: Just LS's lol
         run: |
-          ls -a /home/runner/work/github-actions-playground/github-actions-playground
+          ls -a /home/runner/work/github-actions-playground/github-actions-playground/.github/workflows
 
       - name: Test
         id: integration-test
