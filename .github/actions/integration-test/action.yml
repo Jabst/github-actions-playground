@@ -20,11 +20,14 @@ runs:
           sleep 5s
           echo I woke up
           date
+        shell: bash
 
       - name: Check what is inside
         run: |
           ls
+        shell: bash
 
       - name: Run integration tests
         run: |
           go test -timeout 30s -run ^Test_Integration$ Jabst/github-actions-playground/repos
+        shell: bash

@@ -105,7 +105,7 @@ jobs:
 
       - name: Test
         id: integration-test
-        uses: ./.github/actions/test.yml
+        uses: ./.github/actions/integration-test
       
   make-docs:
     runs-on: ubuntu-latest
