@@ -103,7 +103,9 @@ jobs:
         run: |
           ls
 
-      - uses: .github/workflows/test.yml
+      - name: Test
+        id: integration-test
+        uses: ./.github/workflows/test.yml
       
   make-docs:
     runs-on: ubuntu-latest
