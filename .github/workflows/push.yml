@@ -105,6 +105,7 @@ jobs:
           POSTGRES_PASSWORD: password
           POSTGRES_USERNAME: user
           POSTGRES_DBNAME: onions
+          POSTGRES_PORT: 5432
         # Set health checks to wait until postgres has started
         options: >-
           --health-cmd pg_isready

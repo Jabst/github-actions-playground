@@ -11,7 +11,7 @@ import (
 
 func initOnionStore() repos.OnionStore {
 
-	connString := "host=localhost port=5432 user=user password=password dbname=onions sslmode=disable"
+	connString := "host=postgres port=5432 user=user password=password dbname=onions sslmode=disable"
 
 	pool, err := pgxpool.Connect(context.Background(), connString)
 	if err != nil {
