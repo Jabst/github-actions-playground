@@ -94,7 +94,7 @@ jobs:
           
   integration-test:
     needs: [builds]
-    uses: ./github/workflows/test.yml@${{ github.sha }}
+    uses: ./github/workflows/test.yml@${{github.sha}}
       
   make-docs:
     runs-on: ubuntu-latest
