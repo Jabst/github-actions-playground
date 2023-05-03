@@ -28,6 +28,7 @@ jobs:
     
   prepare-release-notes:
     runs-on: ubuntu-latest
+    needs: [publish-image]
     steps:
       - name: create-release-notes
         run: |
