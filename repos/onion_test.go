@@ -34,7 +34,9 @@ func setupOnion() []repos.Onion {
 }
 
 func Test_Unit_AddOnion(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onion := repos.Onion{
 		Layers: uint(2),
@@ -49,7 +51,9 @@ func Test_Unit_AddOnion(t *testing.T) {
 }
 
 func Test_Unit_AddOnion_2(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onion := repos.Onion{
 		Layers: uint(2),
@@ -65,7 +69,9 @@ func Test_Unit_AddOnion_2(t *testing.T) {
 }
 
 func Test_Unit_ShiftOnion(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onionsToAdd := setupOnion()
 
@@ -83,7 +89,9 @@ func Test_Unit_ShiftOnion(t *testing.T) {
 }
 
 func Test_Unit_ShiftOnion_ToFail(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onionsToAdd := setupOnion()
 
@@ -105,7 +113,9 @@ func Test_Unit_ShiftOnion_ToFail(t *testing.T) {
 }
 
 func Test_Unit_PopOnion(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onionsToAdd := setupOnion()
 
@@ -123,7 +133,9 @@ func Test_Unit_PopOnion(t *testing.T) {
 }
 
 func Test_Unit_PopOnion_ToFail(t *testing.T) {
-	onionStore := initOnionStore()
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
 
 	onionsToAdd := setupOnion()
 
@@ -140,5 +152,21 @@ func Test_Unit_PopOnion_ToFail(t *testing.T) {
 
 	if !errors.Is(err, repos.ErrEmptyBasket) {
 		t.Fatalf("error should be thrown as %s but is %s", repos.ErrEmptyBasket, err)
+	}
+}
+
+func Test_Unit_NukeOnions_ToFail(t *testing.T) {
+	onionStore := repos.OnionStore{
+		Onions: make([]repos.Onion, 0),
+	}
+
+	onionsToAdd := setupOnion()
+
+	onionStore.Onions = append(onionStore.Onions, onionsToAdd...)
+
+	onionStore.NukeOnions()
+
+	if len(onionStore.Onions) != 0 {
+		t.Fatalf("should be empty length")
 	}
 }
