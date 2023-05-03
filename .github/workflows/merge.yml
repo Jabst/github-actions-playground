@@ -94,7 +94,12 @@ jobs:
           
   integration-test:
     needs: [builds]
-    uses: ./.github/workflows/test.yml@${{github.sha}}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+  
+      - uses: ./.github/workflows/test
       
   make-docs:
     runs-on: ubuntu-latest
