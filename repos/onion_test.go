@@ -142,3 +142,17 @@ func Test_Unit_PopOnion_ToFail(t *testing.T) {
 		t.Fatalf("error should be thrown as %s but is %s", repos.ErrEmptyBasket, err)
 	}
 }
+
+func Test_Unit_NukeOnions_ToFail(t *testing.T) {
+	onionStore := initOnionStore()
+
+	onionsToAdd := setupOnion()
+
+	onionStore.Onions = append(onionStore.Onions, onionsToAdd...)
+
+	onionStore.NukeOnions()
+
+	if len(onionStore.Onions) != 0 {
+		t.Fatalf("should be empty length")
+	}
+}

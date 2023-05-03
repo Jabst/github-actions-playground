@@ -58,6 +58,10 @@ func (s *OnionStore) ShiftOnions() (*Onion, error) {
 	return &removedOnion, nil
 }
 
+func (s *OnionStore) NukeOnions() {
+	s.Onions = make([]Onion, 0)
+}
+
 func (s *OnionStore) PopOnion() (*Onion, error) {
 	if len(s.Onions) == 0 {
 		return nil, ErrEmptyBasket
