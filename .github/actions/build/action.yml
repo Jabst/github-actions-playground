@@ -25,7 +25,7 @@ runs:
       - name: Download some dependencies
         if: steps.cache-downloadables.cache-hit != 'true'
         run: |
-          curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v22.0/protoc-22.0-Linux-x86_64.zip ./tmp
+          curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v22.0/protoc-22.0-Linux-x86_64.zip -o ./tmp
           curl -sSL https://github.com/bufbuild/buf/releases/download/v1.6.0/buf-Linux-x86_64 -o ./tmp
 
           ls ./tmp
