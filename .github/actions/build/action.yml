@@ -13,19 +13,23 @@ runs:
           go-version: "^1.18"
           check-latest: true
 
-
-      - name: Download Random Stuff
-        run: |
-          curl -o test.jpg https://www.keycdn.com/img/example.jpg
-        shell: bash
-
       - uses: actions/cache@v3
+        id: cache-downloadables
         with:
           path: |
-            ./test.jpg
-          key: my-key-2
+            ./tmp
+          key: protoc-22.0-buf-1.6
           restore-keys: |
-            my-key-
+            protoc-
+
+      - name: Download some dependencies
+        if: steps.cache-downloadables.cache-hit != 'true'
+        run: |
+          curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v22.0/protoc-22.0-Linux-x86_64.zip ./tmp
+          curl -sSL "https://github.com/bufbuild/buf/releases/download/v1.6.0/buf-Linux-x86_64" -o ./tmp
+
+          ls ./tmp
+        shell: bash
 
       - name: Run generative tests
         run: |
