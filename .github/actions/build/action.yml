@@ -31,7 +31,6 @@ runs:
         shell: bash
 
       - name: Download some dependencies
-        if: steps.cache-downloadables.cache-hit == 'true'
         run: |
           ls ./tmp
 
