@@ -13,6 +13,20 @@ runs:
           go-version: "^1.18"
           check-latest: true
 
+
+      - name: Download Random Stuff
+        run: |
+          curl -o test.jpg https://www.keycdn.com/img/example.jpg
+        shell: bash
+
+      - uses: actions/cache@v3
+        with:
+          path: |
+            ./test.jpg
+          key: my-key-2
+          restore-keys: |
+            my-key-
+
       - name: Run generative tests
         run: |
           echo Actually I only sleep
