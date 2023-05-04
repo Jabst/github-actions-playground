@@ -30,9 +30,3 @@ runs:
 
           ls ./tmp
         shell: bash
-
-      - name: Run generative tests
-        run: |
-          echo Actually I only sleep
-          sleep 10s
-        shell: bash
