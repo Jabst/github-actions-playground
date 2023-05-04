@@ -4,9 +4,6 @@ description: Builds the golang binary
 runs:
   using: "composite"
   steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Setup Go
         uses: actions/setup-go@v4
         with:
@@ -23,10 +20,20 @@ runs:
             protoc-
 
       - name: Download some dependencies
-        if: steps.cache-downloadables.cache-hit != 'true'
+        if: steps.cache-downloadables.cache-hit == 'false'
         run: |
           curl -OL https://github.com/protocolbuffers/protobuf/releases/download/v22.0/protoc-22.0-Linux-x86_64.zip -o ./tmp
           curl -sSL https://github.com/bufbuild/buf/releases/download/v1.6.0/buf-Linux-x86_64 -o ./tmp
 
           ls ./tmp
+
+          echo LOL NAO DEU HIT SHIT
+        shell: bash
+
+      - name: Download some dependencies
+        if: steps.cache-downloadables.cache-hit == 'true'
+        run: |
+          ls ./tmp
+
+          echo DEU HIT A CACHE
         shell: bash
